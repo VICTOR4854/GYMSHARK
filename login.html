@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - GYMSHARK</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: absolute;
+      top: 0;
+    }
+
+    .header-text {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .login-container {
+      max-width: 500px;
+      width: 100%;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    input[type="submit"],
+    .clear-cookie {
+      background-color: black;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .clear-cookie {
+      background-color: crimson;
+    }
+
+    .clear-cookie:hover {
+      background-color: darkred;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #333;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      display: inline-block;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: white;
+      color: black;
+    }
+
+
+    @media (max-width: 600px) {
+      .login-container {
+        padding: 30px 15px;
+      }
+
+      header {
+        padding: 10px;
+        flex-direction: column;
+      }
+
+      .header-text {
+        font-size: 20px;
+      }
+    }
+
+
+    @media (max-width: 768px) {
+      .login-container {
+        padding: 35px 20px;
+      }
+
+      .header-text {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text">GYMSHARK</div>
+  </header>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form onsubmit="saveEmailToStorage(event)">
+      <label for="email">Email</label>
+      <input type="email" id="email" required placeholder="you@example.com" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required placeholder="Enter your password" />
+
+      <input type="submit" value="Login" />
+    </form>
+
+    <button class="clear-cookie" onclick="clearEmailFromStorage()">Clear Saved Email</button>
+  </div>
+
+  <footer>
+    &copy; 2025 GYMSHARK. All Rights Reserved.
+    <nav><a href="index.html">Back</a></nav>
+  </footer>
+
+  <script>
+
+    function saveEmailToStorage(event) {
+      event.preventDefault(); 
+
+      const email = document.getElementById("email").value;
+
+   
+      document.cookie = `savedEmail=${email}; path=/; max-age=604800`; 
+
+     
+      localStorage.setItem("savedEmail", email);
+
+      alert("Email saved! Logging successful!");
+      window.location.href = "index.html"; 
+    }
+
+    
+    window.onload = function () {
+      const savedEmail = getCookie("savedEmail") || localStorage.getItem("savedEmail");
+      if (savedEmail) {
+        document.getElementById("email").value = savedEmail;
+      }
+    };
+
+    
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    
+    function clearEmailFromStorage() {
+      document.cookie = "savedEmail=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      localStorage.removeItem("savedEmail");
+
+      document.getElementById("email").value = "";
+      alert("Saved email has been cleared.");
+    }
+  </script>
+</body>
+</html>

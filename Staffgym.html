@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gym Staff</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f0f0f0;
+        }
+        header {
+            background: black;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 30px; 
+            max-width: 1500px; 
+            margin: auto;
+        }
+        .staff-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 70px; 
+            text-align: center;
+            transition: transform 0.2s;
+            width: 100%; 
+            cursor: pointer; 
+        }
+        .staff-card:hover {
+            transform: scale(1.05);
+        }
+        .staff-card img {
+            padding: 20px;
+            width: 400px; 
+            height: 550px;  
+            margin-bottom: 40px; 
+        }
+        .footer{
+            margin-top: 50px;
+            padding: 20px;
+            background-color: black;
+            color: white;
+            font-size: 14px;
+        }
+        nav{
+            background: black;
+            padding:10px;
+            text-align:center;
+        }
+        nav a{
+            color:white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display:inline-block;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover{
+            background-color:white;
+            color:black;
+        }
+        .header-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GYMSHARK</h1>
+    </header>
+    <div>
+        <div class="container">
+            <div class="staff-card" data-name="Jake Rivers">
+                <img src="Jake Rivers.png" alt="Staff 1">
+                <h3>Jake Rivers</h3>
+                <p>Personal Trainer</p>
+            </div>
+            <div class="staff-card" data-name="Ava Sky">
+                <img src="Ava Sky.png" alt="Staff 2">
+                <h3>Ava Sky</h3>
+                <p>Yoga Instructor</p>
+            </div>
+            <div class="staff-card" data-name="Mike Johnson">
+                <img src="Mike Johnson.png" alt="Staff 3">
+                <h3>Mike Johnson</h3>
+                <p>Nutritionist</p>
+            </div>
+            <div class="staff-card" data-name="Sara Lee">
+                <img src="Sara Lee.png" alt="Staff 4">
+                <h3>Sara Lee</h3>
+                <p>Pilates Instructor</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $(".staff-card").click(function(){
+                var name = $(this).data("name");
+                alert("You clicked on " + name + "!");
+            });
+        });
+    </script>
+    <footer class="footer">
+        <p>© 2025 GYMSHARK. All Rights Reserved. | <a href="#" style="color: white; text-decoration: underline;">Contact Us</a> | <a href="#" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+    </footer>
+    <nav>
+        <a href="index.html">Back</a>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GYMSHARK - BMI Calculator & Fitness</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+    }
+
+    .header-container {
+      width: 100%;
+      background-color: black;
+      color: white;
+      padding: 25px 0;
+      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      font-size: 25px;
+      font-weight: bolder;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 120px auto 50px;
+      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid white;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: black;
+      color: white;
+      font-size: 14px;
+    }
+
+    nav {
+      background: black;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      display: inline-block;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background-color: white;
+      color: black;
+    }
+
+    .social {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header-container">GYMSHARK</header>
+
+  <div class="container">
+    <h2>BMI Calculator</h2>
+    <p>Track fitness goals with <strong>GYMSHARK</strong>'s BMI calculator.</p>
+
+    <input type="number" id="weight" placeholder="Weight (kg)" step="0.1" />
+    <input type="number" id="height" placeholder="Height (m)" step="0.01" />
+    <button onclick="calculateBMI()">Calculate BMI</button>
+
+    <p id="result"></p>
+
+    <div class="social">
+      <p>Share your progress:</p>
+      <div id="fb-root"></div>
+      <div class="fb-share-button"
+           data-href="https://yourwebsite.com"
+           data-layout="button"
+           data-size="large">
+      </div>
+      <br><br>
+      <a class="twitter-share-button"
+         href="https://twitter.com/intent/tweet?text=Just%20calculated%20my%20BMI%20with%20GYMSHARK!"
+         data-size="large">
+         Tweet
+      </a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 GYMSHARK. All Rights Reserved.</p>
+  </footer>
+
+  <nav><a href="index.html">Back</a></nav>
+
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v17.0"
+    nonce="yourNonce"></script>
+
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  <script>
+    window.onload = function () {
+      if (localStorage.getItem('weight')) {
+        document.getElementById('weight').value = localStorage.getItem('weight');
+      }
+      if (localStorage.getItem('height')) {
+        document.getElementById('height').value = localStorage.getItem('height');
+      }
+
+      const cookies = document.cookie.split("; ");
+      const lastBMI = cookies.find(row => row.startsWith("lastBMI="));
+      if (lastBMI) {
+        document.getElementById('result').innerText = `Last BMI: ${lastBMI.split('=')[1]}`;
+      }
+    };
+
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value);
+
+      localStorage.setItem('weight', weight);
+      localStorage.setItem('height', height);
+
+      if (weight > 0 && height > 0) {
+        const bmi = (weight / (height * height)).toFixed(2);
+        let category = '';
+
+        if (bmi < 18.5) category = 'Underweight';
+        else if (bmi < 24.9) category = 'Normal weight';
+        else if (bmi < 29.9) category = 'Overweight';
+        else category = 'Obese';
+
+        document.getElementById('result').innerHTML = `Your BMI is ${bmi} (${category})`;
+
+        document.cookie = `lastBMI=${bmi} (${category}); max-age=86400; path=/`;
+
+      
+        sessionStorage.setItem('currentBMI', bmi);
+        sessionStorage.setItem('currentCategory', category);
+
+        const bmiData = {
+          weight,
+          height,
+          bmi: parseFloat(bmi),
+          category,
+          timestamp: new Date().toISOString()
+        };
+
+        fetch('https://example.com/api/bmi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bmiData)
+        })
+        .then(response => response.json())
+        .then(data => console.log('Sent to API:', data))
+        .catch(error => console.error('API error:', error));
+      } else {
+        document.getElementById('result').innerHTML = 'Please enter valid values';
+      }
+    }
+  </script>
+</body>
+</html>

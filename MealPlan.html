@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Meal plan</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .container {
+            background-color: black;
+            border-radius: 20px;
+            text-align: center;
+            color: whitesmoke;
+            width: 70%;
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+
+        .meal-box1 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .box1 {
+            background-color: white;
+            border-radius: 20px;
+            transition: transform 0.3s;
+            text-align: center;
+            color: black;
+            width: 80%;
+            padding: 15px;
+            margin-bottom: 20px;
+            margin-left: 30px;
+            margin-right: 20px;
+        }
+
+        .box1 h1 {
+            color: rgb(35, 87, 122);
+        }
+
+        .box1 img {
+            border-radius: 20px;
+        }
+
+        .box1:hover {
+            transform: scale(1.05);
+            box-shadow: 5px 10px 15px grey;
+            border: 3px solid grey;
+        }
+
+        header {
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+            background-color: black;
+            justify-content: center;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+        }
+
+        footer {
+            color: white;
+            background-color: black;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        nav {
+            background: black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover{
+            background-color: white;
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GYMSHARK</h1>
+    </header>
+
+    <div class="container">
+        <h1>Muscle Gain Meal Plan!</h1>
+        <div class="meal-box1">
+            <div class="box1">
+                <img src="breakfast.jpg" width="100%">
+                <h1>Breakfast</h1>
+                <p>Oatmeal with banana & almonds + Green Tea</p>
+            </div>
+
+            <div class="box1">
+                <img src="Lunch.jpg" width="100%">
+                <h1>Lunch</h1>
+                <p>Grilled Chicken, Brown Rice, & Steamed Vegetables</p>
+            </div>
+
+            <div class="box1">
+                <img src="Snack.jpg" width="100%">
+                <h1>Snacks</h1>
+                <p>Greek Yogurt with Berries & Nuts</p>
+            </div>
+
+            <div class="box1">
+                <img src="Dinner.jpg" width="100%">
+                <h1>Dinner</h1>
+                <p>Salmon with Quinoa & Leafy Greens</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 GYMSHARK. All Rights Reserved.</p>
+        <nav><a href="index.html">Back</a></nav>
+    </footer>
+
+
+</body>
+
+</html>
